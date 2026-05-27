@@ -1,0 +1,41 @@
+PSSMS ERD (text-based)
+
+Entities & attributes
+1) ParkingSlot
+   - SlotNumber (PK)
+   - SlotStatus
+
+2) Car
+   - PlateNumber (PK)
+   - DriverName
+   - PhoneNumber
+
+3) ParkingRecord
+   - ParkingRecordID (PK, auto)
+   - SlotNumber (FK -> ParkingSlot.SlotNumber)
+   - PlateNumber (FK -> Car.PlateNumber)
+   - EntryTime
+   - ExitTime
+   - Duration (derived, stored)
+
+4) Payment
+   - PaymentID (PK, auto)
+   - ParkingRecordID (FK -> ParkingRecord.ParkingRecordID)
+   - AmountPaid
+   - PaymentDate
+
+Relationship & cardinality
+- ParkingSlot 1  ——  N ParkingRecord
+  (One slot can be used by many parking records over time.)
+
+- Car 1 —— N ParkingRecord
+  (One car can have many parking records over time.)
+
+- ParkingRecord 1 —— 1 Payment
+  (A parking record has at most one payment; payment references the record.)
+
+Keys
+- ParkingSlot.SlotNumber -> ParkingRecord.SlotNumber
+- Car.PlateNumber -> ParkingRecord.PlateNumber
+- ParkingRecord.ParkingRecordID -> Payment.ParkingRecordID
+
